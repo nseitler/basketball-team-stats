@@ -1,8 +1,15 @@
 #Import data
-import constants
+from constants import PLAYERS, TEAMS
+
+team1 = []
+team2 = []
+team3 = []
+
+experienced_players = []
+inexperienced_players = []
 
 # Clean player data
-def clean_data():
+def clean_data(players):
 	for player in players:
 		# Height
 		player["height"] = int(player["height"][0])
@@ -14,18 +21,42 @@ def clean_data():
 		# Guardian
 		player["guardians"] = player["guardians"].split(" and ")
 
+# Divide players into experienced and inexperienced groups
+for player in PLAYERS:
+	if player['experience'] == True:
+		experienced_players.append(player)
+	else:
+		inexperienced_players.append(player)
+
 # Create a menu function
 def menu_screen():
-	print("BASKETBALL TEAM STATS TOOL")  
-	print("----MENU--- \n")
-	Print("Here are your options:")
-	print("1: Display Team Stats ")
-	print("2: Quit ")
 	while True:
-		user_option = input("Please enter an option from the list:  ")
-		if user_option == "1"
-		team_choice = input("Select from the teams below: \n 1: Panthers \n 2: Bandits \n 3: Warriors")
-		team_choice = int(team_choice)-1
+		print("BASKETBALL TEAM STATS TOOL\n----MENU--- ")  
+		print("Here are your options:")
+		print("A: Display Team Stats ")
+		print("B: Quit ")
+		while True:
+			user_option = input("Please enter an option from the list:  ").strip().upper()
+			if user_option == "A":
+				team_choice = input("Select from the teams below: \n 1: Panthers \n 2: Bandits \n 3: Warriors \n")
+				team_choice = int(team_choice)-1
+
+				# Check if the selected team is within the valid range
+				if 0 <= team_choice < len(balanced_teams):
+					team_name = TEAMS[team_choice]
+					team_players = balanced_teams[team_choice]  
+					team_stats = display_team_stats(team_players, [team_name])
+					print(team_stats)
+
+				else:
+					print("Invalid team choice.")
+
+			elif user_option == "B":
+				print("Goodbye!")
+				break
+
+			else:
+				print("Invalid option. Please enter 'A' or 'B'.")
 
 # Save player data to new collection
 
@@ -33,43 +64,69 @@ def menu_screen():
 # Create a balance_teams function
 # Ensure teams have the same number of total players
 def balance_teams():
-	Panthers = []
-	Bandits = []
-	Warriors = []
-	
-	max_team = len(PLAYERS) / len(TEAMS)
+	max_team_size = len(PLAYERS) // len(TEAMS)
 
-	experienced_players = [player["name"] for player in players if player["experience"] == True]
-	max_experienced_players = len(experienced_players) / len(TEAMS)
-	inexperienced_players = [player["name"] for player in players if player["experience"] == False]
-	max_inexperienced_players = len(inexperienced_players) / len(TEAMS)
-	
-	for team in teams:
-		while num_players_team(team) < max_team:
+	# Initialize empty teams
+	teams = [[] for _ in range(len(TEAMS))]
 
+	for player in experienced_players:
+		for team in teams:
+			if len(team) < max_team_size:
+				team.append(player)
+				break
+
+	for player in inexperienced_players:
+		for team in teams:
+			if len(team) < max_team_size:
+				team.append(player)
+				break
+
+	return teams
+
+balanced_teams = balance_teams()
 
 
 # Display stats
-def display_team_stats():
-	team = teams[]
-	print("")
+def display_team_stats(teams, team_names):
+	team_stats = ""
+	for i, team in enumerate(teams):
+		# Team's name as a string
+		team_name = team_names[i]
 
-	# Team's name as a string
-	print("")
-	# Total players on that team as an integer
-	print("Total players: {}".format(experienced_players))
-	# The player names as strings separated by commas
-	print("Player names: ")
-	# number of inexperienced players on that team
-	print("Inexperienced players: {}".format(inexperienced_players)
-	# number of experienced players on that team
-	print("Experienced players: {}".format(experienced_players)
-	# the average height of the team
-	print("Average height: ") round(sum([player["height"] for player in team])  / len(players_on_team), 2)
-	# the guardians of all the players on that team (as a comma-separated string)
-	print("Guardian list: ")
+		players = team_names
+		# Total players on that team as an integer
+		num_players = len(players)
+
+		# The player names as strings separated by commas
+		player_names = ', '.join([player["name"] for player in players])
+
+		# number of inexperienced players on that team
+		num_inexperienced = sum(1 for player in players if player["experience"] == "NO")
+
+		# number of experienced players on that team
+		num_experienced = num_players - num_inexperienced
+
+		# the average height of the team
+		heights = [player["height"] for player in players if player["height"] is not None]
+		average_height = sum(heights) / len(heights) if len(heights) > 0 else 0
+
+		# the guardians of all the players on that team (as a comma-separated string)
+		guardians = ', '.join([player["guardians"] for player in players])
+
+
+		team_stats += f"Team: {team_name}\n"
+		team_stats += f"Total Players: {num_players}\n"
+		team_stats += f"Player Names: {player_names}\n"
+		team_stats += f"Inexperienced Players: {num_inexperienced}\n"
+		team_stats += f"Experienced Players: {num_experienced}\n"
+		team_stats += f"Average Height: {average_height:.1f} inches\n"
+		team_stats += f"Guardians: {guardians}\n\n"
+
+	return team_stats
 
 
 # Dunder main
 if __name__ == "__main__":
-	main()
+	clean_data(PLAYERS)
+	balance_teams()
+	menu_screen()
