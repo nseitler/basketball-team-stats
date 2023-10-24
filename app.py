@@ -38,7 +38,7 @@ def menu_screen():
 	print(" B: Quit \n")
 
 	while True:
-		user_option = input("Please enter an option from the list:   ").strip().upper()
+		user_option = input("Here are your options:\nA: Display Team Stats\nB: Quit\n\nPlease enter an option from the list:   ").strip().upper()
 			
 		if user_option == "A":
 			team_choice = input("\nSelect from the teams below: \n 1: Panthers \n 2: Bandits \n 3: Warriors \n \nEnter an option:   ")
@@ -93,38 +93,37 @@ teams = balance_teams()
 # Display stats
 def display_team_stats(team_players, team_names):
 	team_stats = ""
-	for i, team in enumerate(TEAMS):
-		# Team's name as a string 
-		team_name = team_names
+	# Team's name as a string 
+	team_name = team_names
 
-		players = team_players
-		# Total players on that team as an integer 
-		num_players = len(players)
+	players = team_players
+	# Total players on that team as an integer 
+	num_players = len(players)
 
-		# The player names as strings separated by commas 
-		player_names = ', '.join([player["name"] for player in players])
+	# The player names as strings separated by commas 
+	player_names = ', '.join([player["name"] for player in players])
 
-		# number of inexperienced players on that team 
-		num_inexperienced = sum(1 for player in players if player["experience"] is False)
+	# number of inexperienced players on that team 
+	num_inexperienced = sum(1 for player in players if player["experience"] is False)
 
-		# number of experienced players on that team 
-		num_experienced = num_players - num_inexperienced
+	# number of experienced players on that team 
+	num_experienced = num_players - num_inexperienced
 
-		# the average height of the team 
-		heights = [player["height"] for player in players if player["height"] is not None]
-		average_height = sum(heights) / len(heights) if len(heights) > 0 else 0
+	# the average height of the team 
+	heights = [player["height"] for player in players if player["height"] is not None]
+	average_height = sum(heights) / len(heights) if len(heights) > 0 else 0
 
-		# the guardians of all the players on that team (as a comma-separated string)
-		guardians = ', '.join([', '.join(player["guardians"]) for player in players])
+	# the guardians of all the players on that team (as a comma-separated string)
+	guardians = ', '.join([', '.join(player["guardians"]) for player in players])
 
 
-		team_stats += f"Team: {team_name}\n"
-		team_stats += f"Total Players: {num_players}\n"
-		team_stats += f"Player Names: {player_names}\n"
-		team_stats += f"Inexperienced Players: {num_inexperienced}\n"
-		team_stats += f"Experienced Players: {num_experienced}\n"
-		team_stats += f"Average Height: {average_height:.1f} inches\n"
-		team_stats += f"Guardians: {guardians}\n\n"
+	team_stats += f"Team: {team_name}\n"
+	team_stats += f"Total Players: {num_players}\n"
+	team_stats += f"Player Names: {player_names}\n"
+	team_stats += f"Inexperienced Players: {num_inexperienced}\n"
+	team_stats += f"Experienced Players: {num_experienced}\n"
+	team_stats += f"Average Height: {average_height:.1f} inches\n"
+	team_stats += f"Guardians: {guardians}\n\n"
 
 	return team_stats
 
