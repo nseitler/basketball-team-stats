@@ -1,5 +1,6 @@
 #Import data
 from constants import PLAYERS, TEAMS
+from copy import deepcopy
 
 team1 = []
 team2 = []
@@ -33,26 +34,26 @@ for player in PLAYERS:
 # Create a menu function
 def menu_screen():
 	print("BASKETBALL TEAM STATS TOOL\n\n-----MENU-----\n")  
-	print("Here are your options:")
-	print(" A: Display Team Stats ")
-	print(" B: Quit \n")
 
 	while True:
 		user_option = input("Here are your options:\nA: Display Team Stats\nB: Quit\n\nPlease enter an option from the list:   ").strip().upper()
 			
 		if user_option == "A":
-			team_choice = input("\nSelect from the teams below: \n 1: Panthers \n 2: Bandits \n 3: Warriors \n \nEnter an option:   ")
-			team_choice = int(team_choice)-1
+			try:
+				team_choice = input("\nSelect from the teams below: \n 1: Panthers \n 2: Bandits \n 3: Warriors \n \nEnter an option:   ")
+				team_choice = int(team_choice)-1
 
-			# Check if the selected team is within the valid range
-			if 0 <= team_choice < len(teams):
-				team_name = TEAMS[team_choice]
-				team_players = teams[team_choice]  
-				team_stats = display_team_stats(team_players, [team_name])
-				print(team_stats)
+				# Check if the selected team is within the valid range
+				if 0 <= team_choice < len(teams):
+					team_name = TEAMS[team_choice]
+					team_players = teams[team_choice]  
+					team_stats = display_team_stats(team_players, [team_name])
+					print(team_stats)
+				else:
+					print("Invalid team choice.")
 
-			else:
-				print("Invalid team choice.")
+			except ValueError:
+				print("Invalid input. Please select a team.")
 
 		elif user_option == "B":
 			print("Goodbye!")
