@@ -11,8 +11,10 @@ inexperienced_players = []
 # Clean player data
 def clean_data(players):
 	for player in players:
-		# Height
-		player["height"] = int(player["height"][0])
+		# Height - integer
+		height_int = player["height"].split()
+		if height_int and height_int[0].isnumeric():
+			player["height"] = int(height_int[0])
 		# Experience
 		if player["experience"] == "YES":
 			player["experience"] = True
@@ -87,13 +89,13 @@ balanced_teams = balance_teams()
 
 
 # Display stats
-def display_team_stats(teams, team_names):
+def display_team_stats(team_players, team_names):
 	team_stats = ""
-	for i, team in enumerate(teams):
+	for i, team in enumerate(TEAMS):
 		# Team's name as a string
 		team_name = team_names[i]
 
-		players = team_names
+		players = team_players
 		# Total players on that team as an integer
 		num_players = len(players)
 
@@ -101,14 +103,14 @@ def display_team_stats(teams, team_names):
 		player_names = ', '.join([player["name"] for player in players])
 
 		# number of inexperienced players on that team
-		num_inexperienced = sum(1 for player in players if player["experience"] == "NO")
+		num_inexperienced = sum(1 for player in players if player["experience"] is False)
 
 		# number of experienced players on that team
 		num_experienced = num_players - num_inexperienced
 
 		# the average height of the team
 		heights = [player["height"] for player in players if player["height"] is not None]
-		average_height = sum(heights) / len(heights) if len(heights) > 0 else 0
+		average_height = sum(height) / len(height) if len(heights) > 0 else 0
 
 		# the guardians of all the players on that team (as a comma-separated string)
 		guardians = ', '.join([player["guardians"] for player in players])
