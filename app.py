@@ -61,10 +61,6 @@ def menu_screen():
 		else:
 			print("Invalid option. Please enter 'A' or 'B'.")
 
-
-# Save player data to new collection
-
-
 # Create a balance_teams function
 # Ensure teams have the same number of total players
 def balance_teams():
