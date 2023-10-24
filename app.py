@@ -32,33 +32,35 @@ for player in PLAYERS:
 
 # Create a menu function
 def menu_screen():
+	print("BASKETBALL TEAM STATS TOOL\n\n-----MENU-----\n")  
+	print("Here are your options:")
+	print("A: Display Team Stats ")
+	print("B: Quit ")
+
 	while True:
-		print("BASKETBALL TEAM STATS TOOL\n----MENU--- ")  
-		print("Here are your options:")
-		print("A: Display Team Stats ")
-		print("B: Quit ")
-		while True:
-			user_option = input("Please enter an option from the list:  ").strip().upper()
-			if user_option == "A":
-				team_choice = input("Select from the teams below: \n 1: Panthers \n 2: Bandits \n 3: Warriors \n")
-				team_choice = int(team_choice)-1
+		user_option = input("Please enter an option from the list:   ").strip().upper()
+			
+		if user_option == "A":
+			team_choice = input("\nSelect from the teams below: \n 1: Panthers \n 2: Bandits \n 3: Warriors \n \nEnter an option:   ")
+			team_choice = int(team_choice)-1
 
-				# Check if the selected team is within the valid range
-				if 0 <= team_choice < len(balanced_teams):
-					team_name = TEAMS[team_choice]
-					team_players = balanced_teams[team_choice]  
-					team_stats = display_team_stats(team_players, [team_name])
-					print(team_stats)
-
-				else:
-					print("Invalid team choice.")
-
-			elif user_option == "B":
-				print("Goodbye!")
-				break
+			# Check if the selected team is within the valid range
+			if 0 <= team_choice < len(teams):
+				team_name = TEAMS[team_choice]
+				team_players = teams[team_choice]  
+				team_stats = display_team_stats(team_players, [team_name])
+				print(team_stats)
 
 			else:
-				print("Invalid option. Please enter 'A' or 'B'.")
+				print("Invalid team choice.")
+
+		elif user_option == "B":
+			print("Goodbye!")
+			break
+
+		else:
+			print("Invalid option. Please enter 'A' or 'B'.")
+
 
 # Save player data to new collection
 
