@@ -53,7 +53,7 @@ def menu_screen():
 					print("Invalid team choice.")
 
 			except ValueError:
-				print("Invalid input. Please select a team.")
+				print("Invalid input.")
 
 		elif user_option == "B":
 			print("Goodbye!")
