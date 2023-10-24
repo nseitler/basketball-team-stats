@@ -90,7 +90,7 @@ teams = balance_teams()
 def display_team_stats(team_players, team_names):
 	team_stats = ""
 	# Team's name as a string 
-	team_name = team_names
+	team_name = team_names[0]
 
 	players = team_players
 	# Total players on that team as an integer 
