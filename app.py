@@ -34,8 +34,8 @@ for player in PLAYERS:
 def menu_screen():
 	print("BASKETBALL TEAM STATS TOOL\n\n-----MENU-----\n")  
 	print("Here are your options:")
-	print("A: Display Team Stats ")
-	print("B: Quit ")
+	print(" A: Display Team Stats ")
+	print(" B: Quit \n")
 
 	while True:
 		user_option = input("Please enter an option from the list:   ").strip().upper()
@@ -77,7 +77,7 @@ def balance_teams():
 		for team in teams:
 			if len(team) < max_team_size:
 				team.append(player)
-				break
+
 
 	for player in inexperienced_players:
 		for team in teams:
@@ -87,35 +87,35 @@ def balance_teams():
 
 	return teams
 
-balanced_teams = balance_teams()
+teams = balance_teams()
 
 
 # Display stats
 def display_team_stats(team_players, team_names):
 	team_stats = ""
 	for i, team in enumerate(TEAMS):
-		# Team's name as a string
-		team_name = team_names[i]
+		# Team's name as a string 
+		team_name = team_names
 
 		players = team_players
-		# Total players on that team as an integer
+		# Total players on that team as an integer 
 		num_players = len(players)
 
-		# The player names as strings separated by commas
+		# The player names as strings separated by commas 
 		player_names = ', '.join([player["name"] for player in players])
 
-		# number of inexperienced players on that team
+		# number of inexperienced players on that team 
 		num_inexperienced = sum(1 for player in players if player["experience"] is False)
 
-		# number of experienced players on that team
+		# number of experienced players on that team 
 		num_experienced = num_players - num_inexperienced
 
-		# the average height of the team
+		# the average height of the team 
 		heights = [player["height"] for player in players if player["height"] is not None]
-		average_height = sum(height) / len(height) if len(heights) > 0 else 0
+		average_height = sum(heights) / len(heights) if len(heights) > 0 else 0
 
 		# the guardians of all the players on that team (as a comma-separated string)
-		guardians = ', '.join([player["guardians"] for player in players])
+		guardians = ', '.join([', '.join(player["guardians"]) for player in players])
 
 
 		team_stats += f"Team: {team_name}\n"
