@@ -36,7 +36,7 @@ def divide_players(new_players):
 			inexperienced_players.append(player)
 
 # Create a menu function
-def menu_screen():
+def menu_screen(balance_teams):
 	print("BASKETBALL TEAM STATS TOOL\n\n-----MENU-----\n")  
 
 	while True:
@@ -49,7 +49,8 @@ def menu_screen():
 
 				# Check if the selected team is within the valid range
 				if 0 <= team_choice < len(teams):
-					team_name = TEAMS[team_choice]
+					teams = balance_teams()  # Call the function to get the teams
+					team_name = teams[team_choice]
 					team_players = teams[team_choice]  
 					team_stats = display_team_stats(team_players, [team_name])
 					print(team_stats)
@@ -65,7 +66,7 @@ def menu_screen():
 
 		else:
 			print("Invalid option. Please enter 'A' or 'B'.")
-
+			
 # Create a balance_teams function
 # Ensure teams have the same number of total players
 def balance_teams():
@@ -132,6 +133,7 @@ def display_team_stats(team_players, team_names):
 # Dunder main
 if __name__ == "__main__":
 	new_players = deepcopy(PLAYERS)
+	teams = balance_teams()
 	clean_data(new_players)
 	balance_teams()
-	menu_screen()
+	menu_screen(balance_teams)
