@@ -25,11 +25,13 @@ def clean_data(new_players):
 		player["guardians"] = player["guardians"].split(" and ")
 
 # Divide players into experienced and inexperienced groups
-for player in PLAYERS:
-	if player['experience'] == True:
-		experienced_players.append(player)
-	else:
-		inexperienced_players.append(player)
+def divide_players(new_players):
+	for player in new_players:
+		if player['experience'] == True:
+			experienced_players.append(player)
+		else:
+			inexperienced_players.append(player)
+	return experienced_players, inexperienced_players
 
 # Create a menu function
 def menu_screen():
@@ -128,6 +130,6 @@ def display_team_stats(team_players, team_names):
 # Dunder main
 if __name__ == "__main__":
 	new_players = deepcopy(PLAYERS)
-	clean_data(PLAYERS)
+	clean_data(new_players)
 	balance_teams()
 	menu_screen()
