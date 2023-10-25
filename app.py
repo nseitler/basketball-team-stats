@@ -24,6 +24,9 @@ def clean_data(new_players):
 		# Guardian
 		player["guardians"] = player["guardians"].split(" and ")
 
+	# Call divide_players to categorize players by experience
+	divide_players(new_players)
+
 # Divide players into experienced and inexperienced groups
 def divide_players(new_players):
 	for player in new_players:
@@ -31,7 +34,6 @@ def divide_players(new_players):
 			experienced_players.append(player)
 		else:
 			inexperienced_players.append(player)
-	return experienced_players, inexperienced_players
 
 # Create a menu function
 def menu_screen():
