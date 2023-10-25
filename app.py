@@ -10,8 +10,8 @@ experienced_players = []
 inexperienced_players = []
 
 # Clean player data
-def clean_data(players):
-	for player in players:
+def clean_data(new_players):
+	for player in new_players:
 		# Height - integer
 		height_int = player["height"].split()
 		if height_int and height_int[0].isnumeric():
@@ -127,6 +127,7 @@ def display_team_stats(team_players, team_names):
 
 # Dunder main
 if __name__ == "__main__":
+	new_players = deepcopy(PLAYERS)
 	clean_data(PLAYERS)
 	balance_teams()
 	menu_screen()
