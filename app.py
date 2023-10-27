@@ -50,7 +50,7 @@ def menu_screen(teams):
 				# Check if the selected team is within the valid range
 				if 0 <= team_choice < len(teams):
 					# teams = balance_teams()  # Call the function to get the teams
-					team_name = teams[team_choice]
+					team_name = TEAMS[team_choice]
 					team_players = teams[team_choice]  
 					team_stats = display_team_stats(team_players, [team_name])
 					print(team_stats)
@@ -93,7 +93,7 @@ teams = balance_teams()
 
 
 # Display stats
-def display_team_stats(team_players, team_name):
+def display_team_stats(team_players, team_names):
 	team_stats = ""
 	# Team's name as a string 
 	team_name = team_names[0]
