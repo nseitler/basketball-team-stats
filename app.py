@@ -75,22 +75,19 @@ def balance_teams():
 	# Initialize empty teams
 	teams = [[] for _ in range(len(TEAMS))]
 
-	for player in experienced_players:
+	while experienced_players:
 		for team in teams:
 			if len(team) < max_team_size:
-				team.append(player)
+				player = experienced_players.pop(0)  # Remove the first player from the list
+				team.append(player)  # Append the popped player to the current team
 
-
-	for player in inexperienced_players:
+	while inexperienced_players:
 		for team in teams:
 			if len(team) < max_team_size:
-				team.append(player)
-				break
+				player = inexperienced_players.pop(0)  # Remove the first player from the list
+				team.append(player)  # Append the popped player to the current team
 
 	return teams
-
-teams = balance_teams()
-
 
 # Display stats
 def display_team_stats(team_players, team_names):
